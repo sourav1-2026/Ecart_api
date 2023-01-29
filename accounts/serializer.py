@@ -43,11 +43,11 @@ class LoginSerializer(serializers.Serializer):
 
     def validate(self,data):
         # check user with that name exist or not
-        if not User.objects.filter(usename=data['username']).exists():
+        if not User.objects.filter(username=data['username']).exists():
             raise serializers.ValidationError("User not found")
         return data
     
-    def get_tokens_for_user(data):
+    def get_tokens_for_user(self, data):
         user= authenticate(username=data['username'],password=data['password'])
         print(user)
 
