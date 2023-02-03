@@ -9,6 +9,8 @@ class CategorySerializer(serializers.ModelSerializer):
     def validate_name(self, value):
         if not value.strip():
             raise serializers.ValidationError("Name can not be blank")
+        if Category.objects.filter(name=value).exists():
+            raise serializers.ValidationError("A category with the same name already exists.")
         return value
 
     def validate_description(self, value):
