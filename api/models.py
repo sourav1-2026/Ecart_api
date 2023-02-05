@@ -1,7 +1,8 @@
 from django.db import models
 
 from django.contrib.auth.models import User
-
+# from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 
 class Category(models.Model):
     name= models.CharField(max_length=255)
@@ -12,9 +13,11 @@ class Category(models.Model):
 
 class Product(models.Model):
     name=models.CharField(max_length=255)
+    #description=RichTextField()
     description=models.TextField()
+    #description= RichTextUploadingField()
     price=models.DecimalField(max_digits=10, decimal_places=2)
-    image=models.ImageField(upload_to='shope')
+    image=models.ImageField(upload_to='static')
     category=models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
