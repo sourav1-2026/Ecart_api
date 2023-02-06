@@ -7,7 +7,17 @@ from . serializer import *
 import json
 from django.http import JsonResponse
 
+# authentication
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+# Throttling
+from rest_framework.throttling import UserRateThrottle,AnonRateThrottle
+
 class CategoryView (viewsets.ViewSet):
+    authentication_classes=[JWTAuthentication]
+    permission_classes=[IsAuthenticatedOrReadOnly]
+    throttle_classes=[UserRateThrottle,AnonRateThrottle]
 
     def list(self,request):
         try:
@@ -93,8 +103,3 @@ class CategoryView (viewsets.ViewSet):
 
 
 
-
-"""
-concern is that not able to set the data in cache
-
-"""
